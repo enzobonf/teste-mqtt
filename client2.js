@@ -1,5 +1,5 @@
 const mqtt = require('mqtt');
-const client = mqtt.connect('mqtt://localhost');
+const client = mqtt.connect('mqtt://192.168.0.128:1883');
 const readline = require('readline');
 
 const rl = readline.createInterface({
@@ -16,6 +16,7 @@ const question = () => {
 
 client.on('connect', async ()=>{
     question();
+    client.subscribe('test');
 });
 
 client.on('message', (topic, message) => {

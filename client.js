@@ -1,5 +1,5 @@
 const mqtt = require('mqtt');
-const client = mqtt.connect('mqtt://localhost');
+const client = mqtt.connect('mqtt://192.168.0.128:1883');
 
 client.on('connect', ()=>{
     client.subscribe('test', (err)=>{
