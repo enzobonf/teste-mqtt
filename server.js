@@ -8,10 +8,16 @@ var mosca = require('mosca');
   mongo: {}
 }; */
 
-var settings = {
+let settings = {
   port: 1883,
   //backend: ascoltatore
 };
+
+let topicos = [
+  'temperatura',
+  'umidade',
+  'peso'
+]
 
 var server = new mosca.Server(settings);
 
@@ -25,7 +31,18 @@ server.on('clientDisconnected', (client)=>{
 
 // fired when a message is received
 server.on('published', function(packet, client) {
-  console.log('Published', packet.payload);
+  const topic = packet.topic.split('/')[0];
+  if(topicos.includes(topic)){
+    const number = packet.topic.split('/')[1];
+    server.publish({
+      payload: JSON.stringify({leitura: packet.payload.toString(), topic, number}),
+      qos: 0,
+      retain: false,
+      topic: 'all'
+    }, ()=>{
+      console.log('Published', packet.payload);
+    });
+  }
 });
 
 server.on('ready', setup);

@@ -1,16 +1,27 @@
 const mqtt = require('mqtt');
 const client = mqtt.connect('mqtt://192.168.0.128:1883');
 
+const getRandom = (min, max) => {
+    return Math.random() * (max - min) + min;
+}
+
+const getRandomInt = (min, max) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+
 client.on('connect', ()=>{
-    client.subscribe('test', (err)=>{
-        if(!err){
-            client.publish('test', 'Hello');
-        }
-    })
+    
+    setInterval(() => {
+        client.publish(`temperatura/${getRandomInt(1,4)}`, getRandom(30, 50).toFixed(1).toString());
+        client.publish(`umidade/${getRandomInt(1,4)}`, getRandom(75, 100).toFixed(1).toString());
+        client.publish(`peso/${getRandomInt(1,4)}`, getRandomInt(2500, 3000).toFixed(1).toString());
+    }, 1500);
 
 });
 
-client.on('message', (topic, message) => {
+/* client.on('message', (topic, message) => {
     console.log('\Topic:', topic, '\nMessage:', message.toString());
     console.log('----------------')
-})
+}) */

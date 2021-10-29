@@ -1,3 +1,4 @@
+const { RSA_X931_PADDING } = require('constants');
 const mqtt = require('mqtt');
 const client = mqtt.connect('mqtt://192.168.0.128:1883');
 const readline = require('readline');
@@ -7,19 +8,18 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-const question = () => {
-    rl.question('Mensagem a enviar: ', (msg)=>{
-        client.publish('test', msg);
+const question = async () => {
+    rl.question('Tópico para enviar: ', (topic) => rl.question('Mensagem: ', (msg)=>{
+        client.publish(`${topic}/77`, msg);
         question();
-    });
+    }));
 }
 
 client.on('connect', async ()=>{
     question();
-    client.subscribe('test');
 });
 
-client.on('message', (topic, message) => {
+/* client.on('message', (topic, message) => {
     console.log('\Topic:', topic, '\nMessage:', message.toString());
     console.log('----------------')
-})
+}) */
