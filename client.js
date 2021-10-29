@@ -1,5 +1,5 @@
 const mqtt = require('mqtt');
-const client = mqtt.connect('mqtt://192.168.0.128:1883');
+const client = mqtt.connect('mqtt://localhost:1883');
 
 const getRandom = (min, max) => {
     return Math.random() * (max - min) + min;
@@ -25,3 +25,4 @@ client.on('packetsend', (packet) => {
     console.log(`Leitura enviada -> tópico: ${packet.topic} - leitura: ${packet.payload}`);
     console.log('----------------')
 })
+

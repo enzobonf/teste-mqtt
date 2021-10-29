@@ -16,7 +16,8 @@ let settings = {
 let topicos = [
   'temperatura',
   'umidade',
-  'peso'
+  'peso',
+  'temperatua externa'
 ]
 
 var server = new mosca.Server(settings);

@@ -1,6 +1,6 @@
 const { RSA_X931_PADDING } = require('constants');
 const mqtt = require('mqtt');
-const client = mqtt.connect('mqtt://192.168.0.128:1883');
+const client = mqtt.connect('mqtt://localhost:1883');
 const readline = require('readline');
 
 const rl = readline.createInterface({
