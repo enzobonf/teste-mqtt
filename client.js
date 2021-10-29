@@ -21,7 +21,7 @@ client.on('connect', ()=>{
 
 });
 
-/* client.on('message', (topic, message) => {
-    console.log('\Topic:', topic, '\nMessage:', message.toString());
+client.on('packetsend', (packet) => {
+    console.log(`Leitura enviada -> tópico: ${packet.topic} - leitura: ${packet.payload}`);
     console.log('----------------')
-}) */
+})
