@@ -8,14 +8,31 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
+let topicos = [
+    'temperatura',
+    'umidade',
+    'peso',
+    'temp_externa',
+    'umid_externa'
+];
+
+generateStrTopicos = () => {
+    let str = '';
+    topicos.forEach((topico, index)=>{
+        str += `${topico} - ${index+1}\n`;
+    });
+    return str;
+}
+
 const question = async () => {
-    rl.question('Tópico para enviar: ', (topic) => rl.question('Mensagem: ', (msg)=>{
-        client.publish(`${topic}/77`, msg);
+    rl.question('Número da sonda: ', (number) => rl.question(`Tópico para enviar: `, (topic) => rl.question('Mensagem: ', (msg)=>{
+        client.publish(`${topicos[topic-1]}/${number}`, msg);
         question();
-    }));
+    })));
 }
 
 client.on('connect', async ()=>{
+    console.log(`-----TÓPICOS----\n\n${generateStrTopicos()}----------------\n\n`);
     question();
 });
 

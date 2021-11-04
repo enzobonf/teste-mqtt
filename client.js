@@ -17,7 +17,9 @@ client.on('connect', ()=>{
         client.publish(`temperatura/${getRandomInt(1,4)}`, getRandom(30, 50).toFixed(1).toString());
         client.publish(`umidade/${getRandomInt(1,4)}`, getRandom(75, 100).toFixed(1).toString());
         client.publish(`peso/${getRandomInt(1,4)}`, getRandomInt(2500, 3000).toFixed(1).toString());
-    }, 1500);
+        //client.publish(`temp_externa/${getRandomInt(1,4)}`, getRandom(30, 50).toFixed(1).toString());
+        //client.publish(`umid_externa/${getRandomInt(1,4)}`, getRandom(75, 100).toFixed(1).toString());
+    }, 2500);
 
 });
 
